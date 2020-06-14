@@ -449,11 +449,16 @@ $system__options_general[]=array(
 'default_value'=>'n'
 );
 
-
-
 $system__options_general[]=array(
 'option_name'=>'enable_rules_signed_tracking',
 'option_text'=>'Enable the "rules" checkbox in participant profiles and session participant lists?',
+'type'=>'select_yesno_switchy',
+'default_value'=>'y'
+);
+
+$system__options_general[]=array(
+'option_name'=>'enable_language_test',
+'option_text'=>'Enable the "language_test" checkbox in participant profiles and session participant lists?',
 'type'=>'select_yesno_switchy',
 'default_value'=>'y'
 );

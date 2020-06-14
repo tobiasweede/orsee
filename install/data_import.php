@@ -4,8 +4,8 @@
 // CREATE THE CONFIGURATION CODE IN Options/Prepare data import //
 // THEN COPY YOUR IMPORT CONFIGURATION CODE BELOW HERE          //
 
-$old_db_name="orsee_old";
-$new_db_name="orsee_3_0_0";
+$old_db_name="orseedatabase";
+$new_db_name="orsee3";
 
 // mapping of participant statuses
 // participant_status_mapping[deleted y/n][excluded y/n]=status_id
@@ -35,11 +35,11 @@ $pform_mapping["begin_of_studies"]="begin_of_studies";
 $pform_mapping["field_of_studies"]="field_of_studies";
 $pform_mapping["profession"]="profession";
 $pform_mapping["gender"]="gender";
+$pform_mapping["language_test"]="language_test";
 
 // other settings
 $import_type="all";
-$replace_tokens="n";
-
+$replace_tokens="y";
 
 // COPY YOUR IMPORT CONFIGURATION CODE ABOVE HERE               //
 //////////////////////////////////////////////////////////////////
@@ -72,11 +72,11 @@ if ($import_type=='all') {
     $import_admin=true;
     $import_admin_log=true;
     $import_custom_admin_types=true;
-    $import_cron_log=true;
+    $import_cron_log=false;
     $import_experiment_types=true;
     $import_experiments=true;
     $import_faqs=true;
-    $import_lab_bookings=true;
+    $import_lab_bookings=false;
     $import_lang_items=true;
     $import_userform_select_langs=true;
     $import_participants=true;
@@ -84,7 +84,7 @@ if ($import_type=='all') {
     $import_participant_log=true;
     $import_participate_at=true;
     $import_subpools=true;
-    $import_files=true;
+    $import_files=false;
     $update_last_enrolment_date=true;
 } elseif ($import_type=='participation') {
     $import_admin_log=true;
@@ -146,8 +146,11 @@ function detectUTF8($string) {
 function convert_array_to_UTF8($arr) {
     foreach($arr as $k=>$v) {
         if (!detectUTF8(stripslashes($v))) {
-            $arr[$k]=utf8_encode(stripslashes($v));
+            # $arr[$k]=utf8_encode(stripslashes($v));
         }
+	if ($arr[$k]=='') {
+	    # $arr[$k]=null;
+	}
     }
     return $arr;
 }
@@ -331,7 +334,7 @@ if (!$allset) {
 
 
         $copy_directly=array('participant_id','participant_id_crypt','creation_time','subpool_id',
-            'number_reg','number_noshowup','language','remarks','rules_signed');
+            'number_reg','number_noshowup','language','remarks','rules_signed','language_test');
         $dquery="DELETE FROM ".$new_db_name.".".table('participants')."";
         if ($do_delete) $done=or_query($dquery);
         $squery="SELECT * FROM ".$old_db_name.".".table('participants')."";
