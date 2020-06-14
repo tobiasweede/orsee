@@ -460,8 +460,17 @@ if ($settings['subject_authentication']!='token') {
                             'show_if_logged_in'=>1
                             );
 $menu[]=            array(
-                            'menu_area'=>'rules',
+                            'menu_area'=>'information',
                             'entrytype'=>'headlink',
+                            'lang_item'=>'information',
+                            'link'=>'/public/information.php',
+                            'icon'=>'',
+                            'show_if_not_logged_in'=>1,
+                            'show_if_logged_in'=>1
+                            );
+$menu[]=            array(
+                            'menu_area'=>'rules',
+                            'entrytype'=>'link',
                             'lang_item'=>'rules',
                             'link'=>'/public/rules.php',
                             'icon'=>'',
@@ -470,7 +479,7 @@ $menu[]=            array(
                             );
 $menu[]=            array(
                             'menu_area'=>'privacy',
-                            'entrytype'=>'headlink',
+                            'entrytype'=>'link',
                             'lang_item'=>'privacy_policy',
                             'link'=>'/public/privacy.php',
                             'icon'=>'',
@@ -478,8 +487,17 @@ $menu[]=            array(
                             'show_if_logged_in'=>1
                             );
 $menu[]=            array(
+                            'menu_area'=>'directions',
+                            'entrytype'=>'link',
+                            'lang_item'=>'directions',
+                            'link'=>'/public/directions.php',
+                            'icon'=>'',
+                            'show_if_not_logged_in'=>1,
+                            'show_if_logged_in'=>1
+                            );
+$menu[]=            array(
                             'menu_area'=>'faqs',
-                            'entrytype'=>'headlink',
+                            'entrytype'=>'link',
                             'lang_item'=>'faqs',
                             'link'=>'/public/faq.php',
                             'icon'=>'',

@@ -865,6 +865,7 @@ function participant__show_admin_form($edit,$button_title="",$errors,$extra="") 
         echo '<tr><td>'.lang('rules_signed').'</td>
             <td>'.participant__rules_signed_form_field($edit['rules_signed']).'</td></tr>';
     }
+
     echo '<tr><td valign="top">'.lang('remarks').'</td>
             <td>'.participant__remarks_form_field($edit['remarks']).'</td></tr>';
 
@@ -1680,7 +1681,7 @@ function participant__get_result_table_row_pdf($columns,$p) {
                     break;
                 case 'rules_signed':
                     if ($settings['enable_rules_signed_tracking']=='y')  {
-                        $row[]= ($p['rules_signed']!='y') ? "X" : '';
+                        $row[]= ($p['rules_signed']=='y') ? "X" : '';
                     }
                     break;
                 case 'subscriptions':
