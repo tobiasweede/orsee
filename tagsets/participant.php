@@ -1238,6 +1238,7 @@ function participant__nonuserdefined_columns() {
     $columns['participant_id']=array('use_in_tables'=>1,'lang_symbol'=>'participant_id','include_in_freetext_search'=>1);
     $columns['number_noshowup']=array('use_in_tables'=>1,'lang_symbol'=>'noshowup','include_in_freetext_search'=>0);
     $columns['rules_signed']=array('use_in_tables'=>1,'lang_symbol'=>'rules_signed','include_in_freetext_search'=>0);
+    $columns['language_test']=array('use_in_tables'=>1,'lang_symbol'=>'language_test','include_in_freetext_search'=>0);
     $columns['creation_time']=array('use_in_tables'=>1,'lang_symbol'=>'creation_time','include_in_freetext_search'=>0);
     $columns['deletion_time']=array('use_in_tables'=>1,'lang_symbol'=>'deletion_time','include_in_freetext_search'=>0);
     $columns['last_enrolment']=array('use_in_tables'=>1,'lang_symbol'=>'last_enrolment','include_in_freetext_search'=>0);
@@ -1425,6 +1426,11 @@ function participant__get_result_table_headcells($columns,$allow_sort=true) {
                     $out.=query__headcell($arr['display_text'],"rules_signed,lname,fname",$allow_sort);
                 }
                 break;
+            case 'language_test':
+                if ($settings['enable_language_test']=='y')  {
+                    $out.=query__headcell($arr['display_text'],"language_test,lname,fname",$allow_sort);
+                }
+                break;
             case 'payment_budget':
             case 'payment_type':
             case 'payment_amount':
@@ -1460,6 +1466,11 @@ function participant__get_result_table_headcells_pdf($columns) {
         switch($k) {
             case 'rules_signed':
                 if ($settings['enable_rules_signed_tracking']=='y')  {
+                    $table_headings[]=$arr['display_text'];
+                }
+                break;
+            case 'language_test':
+                if ($settings['enable_language_test']=='y')  {
                     $table_headings[]=$arr['display_text'];
                 }
                 break;
@@ -1538,6 +1549,16 @@ function participant__get_result_table_row($columns,$p) {
                         }
                         $out.='></td>';
                     }
+                    break;
+				case 'language_test':
+                    $out.='<td class="small">';
+                    if (check_allow('experiment_edit_participants')) {
+                         $out.='<INPUT type=hidden name="orig_language_test['.$p['participant_id'].']" value="'.$p['language_test'].'">';
+                         $out.=expregister__language_test_signed_select_field('language_test['.$p['participant_id'].']',$p['language_test']);
+                    } else {
+                        $out.=lang($p['language_test']);
+                    }
+                    $out.='</td>';
                     break;
                 case 'subscriptions':
                     $exptypes=load_external_experiment_types();
