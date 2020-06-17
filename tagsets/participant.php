@@ -558,6 +558,19 @@ function participant__rules_signed_form_field($current_rules_signed="") {
     return $out;
 }
 
+function participant__language_test_form_field($current_language_test="") {
+    global $lang;
+	// Field is not mandatory and can be set later.
+	// Default value in database is "o". Nothing is checked if not set.
+	$out='<input type=radio name=language_test value="y"';
+    if ($current_language_test=="y") $out.=" CHECKED";
+        $out.='>'.lang('yes').'&nbsp;&nbsp;&nbsp;
+         <input type=radio name=language_test value="n"';
+        if ($current_language_test=="n") $out.=" CHECKED";
+        $out.='>'.lang('no');
+    return $out;
+}
+
 function participant__remarks_form_field($current_remarks="") {
         global $lang;
         $out='<TEXTAREA name="remarks" rows="5" cols="40" wrap=virtual>';
@@ -845,6 +858,7 @@ function participant__show_admin_form($edit,$button_title="",$errors,$extra="") 
     if (!isset($edit['participant_id_crypt'])) $edit['participant_id_crypt']='???';
     if (isset($edit['creation_time'])) $tout['creation_time']=ortime__format($edit['creation_time'],'',lang('lang'));  else $tout['creation_time']='';
     if (!isset($edit['rules_signed'])) $edit['rules_signed']='';
+    if (!isset($edit['language_test'])) $edit['language_test']='';
     if (!isset($edit['session_id'])) $edit['session_id']='';
     if (!isset($edit['remarks'])) $edit['remarks']='';
 
@@ -864,6 +878,11 @@ function participant__show_admin_form($edit,$button_title="",$errors,$extra="") 
     if ($settings['enable_rules_signed_tracking']=='y') {
         echo '<tr><td>'.lang('rules_signed').'</td>
             <td>'.participant__rules_signed_form_field($edit['rules_signed']).'</td></tr>';
+    }
+
+    if ($settings['enable_language_test']=='y') {
+        echo '<tr><td>'.lang('language_test').'</td>
+            <td>'.participant__language_test_form_field($edit['rules_signed']).'</td></tr>';
     }
 
     echo '<tr><td valign="top">'.lang('remarks').'</td>
