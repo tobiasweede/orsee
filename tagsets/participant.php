@@ -882,7 +882,7 @@ function participant__show_admin_form($edit,$button_title="",$errors,$extra="") 
 
     if ($settings['enable_language_test']=='y') {
         echo '<tr><td>'.lang('language_test').'</td>
-            <td>'.participant__language_test_form_field($edit['rules_signed']).'</td></tr>';
+            <td>'.participant__language_test_form_field($edit['language_test']).'</td></tr>';
     }
 
     echo '<tr><td valign="top">'.lang('remarks').'</td>
@@ -1721,6 +1721,9 @@ function participant__get_result_table_row_pdf($columns,$p) {
                     break;
                 case 'rules_signed':
                     if ($settings['enable_rules_signed_tracking']=='y')  {
+						// Jena specific logic -- The default setting shows X,
+						// if the rules are NOT signed.
+                        // $row[]= ($p['rules_signed']!='y') ? "X" : '';
                         $row[]= ($p['rules_signed']=='y') ? "X" : '';
                     }
                     break;
